@@ -1,0 +1,286 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.qingclass.bigbay</groupId>
+	<artifactId>bigbay-payment</artifactId>
+	<version>1.0.0</version>
+	<name>bigbay-payment</name>
+
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+<dependency>
+    <groupId>com.alipay.sdk</groupId>
+    <artifactId>alipay-sdk-java</artifactId>
+    <version>3.3.4.ALL</version>
+</dependency>
+
+
+		<dependency>
+	      <groupId>com.alibaba</groupId>
+	      <artifactId>fastjson</artifactId>
+	      <version>1.1.36</version>
+	    </dependency>
+	    
+	    <dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun.openservices</groupId>
+			<artifactId>aliyun-log</artifactId>
+			<version>0.6.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.protobuf</groupId>
+					<artifactId>protobuf-java</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+		<dependency> 
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency> 
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
+
+		
+		
+		<dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>1.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>jd</groupId>
+			<artifactId>pay</artifactId>
+			<version>1.0.17</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/pay-gate-signature-1.0.17.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+	</dependencies>
+
+
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.6.RELEASE</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<profiles>
+		<profile>
+			<id>bigbay</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<server.port>8080</server.port>
+				
+				<audition.qrcode.domain>http://bigbay.qingclasswelearn.com/</audition.qrcode.domain>
+				
+				<qing.app.huabei.notify.url>http://test.api.qkduo.cn/bigbay/callback/alipay</qing.app.huabei.notify.url>
+			
+				<huabei.callback.url>http://bigbay.qingclasswelearn.com/huabei-notify</huabei.callback.url>
+				<huabei.pay.url>https://www.xuexiao100.cn/xapi/pushextorder</huabei.pay.url>
+				
+				<pandora.url.ip>https://api-venus.qingclass.cn</pandora.url.ip>
+				<logging.level.com.qingclass.bigbay.mapper>debug</logging.level.com.qingclass.bigbay.mapper>
+				<url.sell.page.images.domain>http://bigbay-dev.oss-cn-beijing.aliyuncs.com/</url.sell.page.images.domain>
+				
+				<aliyun.log.project>bigbay-payment</aliyun.log.project>
+				<aliyun.log.logstore>bigbay-sell-page-dev</aliyun.log.logstore>
+				<aliyun.log.endpoint>cn-beijing.log.aliyuncs.com</aliyun.log.endpoint>
+				<aliyun.log.accessKeyId>LTAI8vN6zomQVKdo</aliyun.log.accessKeyId>
+				<aliyun.log.accessKeySecret>6heV4PsALuWraxzX7QnwupjkkgiF4i</aliyun.log.accessKeySecret>
+				
+				<jd.h5.pay.merchant.num>111683657001</jd.h5.pay.merchant.num>
+				<jd.h5.pay.merchant.rsaPrivateKey>MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCbgeip8C4Onf8ASoy42yN7vhM7ZmPS5MH4sBVjx1hnLgDK6pie9xiK9x1T4MBftqdicRtPrE3HQ0SMKB0dq2bEPYpWv8MNE/mxsVSQfUAfuiSSsTWf32LT2P2kzSBQI3fu9TgtJXri8I6NAVYfMjKtD7oM90QAbjgYtc05XHQUpXRR24fYaojf1+bvgpGHsFni+NSrZAzhijkoAvORVU4BLu67pN6VSiAlViEm3cZtTacZ55L4VauPkLpntKwOQXd2Kks7XOXqifn3Rb3mozaDZudukUPctt13WH030ZWbG2HH2AaqX9bxYx6Bb7Br4QyZ+eBrLiZHOefAjlyrk0lnAgMBAAECggEAcuYmqcGL1kMJEgcDOOa5rgmAHkiGA2IArCY2d7Xn7LzB2yxBPltmZ+80XTBYE6BaxtK5kkHGai+aq1BMSwrE8MRjvbsMfFJBEPjseaIByi94LGcBLzIXzF2s86KYeH3sdMP9EOZ7iMijGy5cmso1RUe0eTYNqZ/GlQNnMjXMkx+P40sRuwfdCPNd9CYUeQ61D86nKfj9Y/Dx29IKlBKxy0drxnEwWkyl2Ux7mAbwb372SLwyhsHtnzmjDsvKupIui/22d4Kyj+AiPHcMSToFJVnv0i4UGmgH3C1p7efUerLVnJe/eHYQCwOB6ZWPSvHu4Wm8V+ZwvpDcNuOlZBbWyQKBgQDhlQHdmJY+Wmw/ma2F0DSESc2wn84yiM63313mt/eLwT03MdUkZaFkLX171rteW5ht+juD/NcjWX+LiA4+/CK1WX1OyJZ5+MJPzRqFpEiAW4Qv7lrL1do4xRR9uuj90xeN06/T6yKZDxHB383KmvIuEMPyEyuK6eYhp/FKzL9QnQKBgQCwefUSRqwmBGaUMc2JCcwg+VdX6lzWuGOWZ9I5KtFSioCEU4xpiiLuZ2p8h0RcX2JJLmCVZen9CW9gIhryyrEBPB1XxpGw+G6paoc0g8VZNn9rln3cC01S1zEr3PhQSomnqhfXOMiwANiJ+wdcjxynRZWs3TX5iuasJRSXTc+40wKBgFTCuXW7LND3Bu+K3fGGvwTp+ligY0kHsKzUSCM2AtTHYioIFm9bpJ3QnfLXR4X34rmIKa65ZVkJ+uvBzqCJ+ryriHL+2dOwzcpQZePLS9a3DF86L3GhxCJKox1vCra9B3+qB8oX8uMSD3kKj/fN6qu2bvnZjCXhJzCEOx0A++3dAoGAb6R3uZwkA9j82/u1v2AHV0TmUKPfH6d+uQPtJmVEDye3rf788TeGabPa1fTs9lMRZqKET38ty/pQD00EJ1y7JcDV/1WLjZ1cxKiz6DEEhC/J5FJMRQyRWjrwzIL6RDEjbIJamrk9nLqsQn4gZhnTUq7exYEcSEXrMDQ1FpMPOikCgYAJJtDb79ebdnPIwhPJcfGVFD2nYKI2RdUwTrGKI2A3+hYH65h9Fo6JJEK3Dc6VnDFPAp5EuTVMLt33x5IvMbHRIfnVMPtHh9qLwQW1HNMbDPQzwCIwuriCylbpVQ3jfj+TzyWE+mtYnj70aTvHQebOt5h9u5qyH+Z+57CQxoijPQ==</jd.h5.pay.merchant.rsaPrivateKey>
+				<jd.h5.pay.merchant.desKey>MTLmJQ7HUsTZzcvOW4DNogv0buOepxDB</jd.h5.pay.merchant.desKey>
+				<jd.h5.pay.merchant.rsaPublicKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCKE5N2xm3NIrXON8Zj19GNtLZ8xwEQ6uDIyrS3S03UhgBJMkGl4msfq4Xuxv6XUAN7oU1XhV3/xtabr9rXto4Ke3d6WwNbxwXnK5LSgsQc1BhT5NcXHXpGBdt7P8NMez5qGieOKqHGvT0qvjyYnYA29a8Z4wzNR7vAVHp36uD5RwIDAQAB</jd.h5.pay.merchant.rsaPublicKey>
+				<jd.app.pay.backend.url>http://bigbay-static-pages-test.qingclasswelearn.com/static-page.html#/jdTransfer</jd.app.pay.backend.url>
+				<url.bigbay.payment.notify>http://bigbay.qingclasswelearn.com/notify</url.bigbay.payment.notify>
+				
+				<url.code.to.openId>http://bigbay-token-service.qingclass.com/code-to-open-id</url.code.to.openId>
+				<url.code.to.userInfo>http://bigbay-token-service.qingclass.com/code-to-user-info</url.code.to.userInfo>
+				<url.generate.js.sdk.signature>http://bigbay-token-service.qingclass.com/js-sdk-signature</url.generate.js.sdk.signature>
+				<url.js.entry>http://bigbay-payment-fe-test.qingclass.com/static/bigbay-payment-bundle.js</url.js.entry>
+				
+				<alipay.url.js.entry>http://bigbay-payment-fe-test.qingclass.com/static/bigbay-payment-alipay.js</alipay.url.js.entry>
+
+				<star.payment.sdk.js.url>http://bigbay-payment-fe-test.qingclass.com/static/star-payment-sdk.js</star.payment.sdk.js.url>
+			
+				<!-- paRyment transaction db -->
+				<spring.datasource.payment.url>jdbc:mysql://rm-2ze38nkyoj60l0l9zro.mysql.rds.aliyuncs.com:3306/bigbay_payment?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</spring.datasource.payment.url>
+				<spring.datasource.payment.username>bigbay_dev</spring.datasource.payment.username>
+				<spring.datasource.payment.password>BigbayDev123</spring.datasource.payment.password>
+
+				<!-- bigbay config db -->
+				<spring.datasource.config.url>jdbc:mysql://rm-2ze38nkyoj60l0l9zro.mysql.rds.aliyuncs.com:3306/bigbay_config?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</spring.datasource.config.url>
+				<spring.datasource.config.username>bigbay_dev</spring.datasource.config.username>
+				<spring.datasource.config.password>BigbayDev123</spring.datasource.config.password>
+				
+				<!-- bigbay sales db -->
+				<spring.datasource.sales.url>jdbc:mysql://rm-2ze38nkyoj60l0l9zro.mysql.rds.aliyuncs.com:3306/bigbay_sales?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</spring.datasource.sales.url>
+				<spring.datasource.sales.username>bigbay_dev</spring.datasource.sales.username>
+				<spring.datasource.sales.password>BigbayDev123</spring.datasource.sales.password>
+
+				<!-- bigbay wechatUsers db -->
+				<spring.datasource.wechatUsers.url>jdbc:mysql://rm-2ze38nkyoj60l0l9zro.mysql.rds.aliyuncs.com:3306/bigbay_wechat_users?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</spring.datasource.wechatUsers.url>
+				<spring.datasource.wechatUsers.username>bigbay_dev</spring.datasource.wechatUsers.username>
+				<spring.datasource.wechatUsers.password>BigbayDev123</spring.datasource.wechatUsers.password>
+				
+				<!-- zebra transaction db -->
+				<spring.datasource.zebra.url>jdbc:mysql://rm-2ze38nkyoj60l0l9zro.mysql.rds.aliyuncs.com:3306/bigbay_zebra?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</spring.datasource.zebra.url>
+				<spring.datasource.zebra.username>bigbay_dev</spring.datasource.zebra.username>
+				<spring.datasource.zebra.password>BigbayDev123</spring.datasource.zebra.password>
+
+				<yiban.notify.url>http://yiban-api-test.qingclass.com/yiban-app/api/v1.0.0/pay/sale/callback</yiban.notify.url>
+				<yiban.sign.key>7759dae12d8846b9bd70fc132cc9142c</yiban.sign.key>
+				<yiban.bigbay.appId>bigbay_yiban</yiban.bigbay.appId>
+
+				<yiban.refund.notify.url>http://yiban-api-test.qingclass.com/yiban-app/api/v1.0.0/refund/order</yiban.refund.notify.url>
+				
+				<url.app.iap.notify>https://sandbox.itunes.apple.com/verifyReceipt</url.app.iap.notify>
+				<url.app.wx.notify>http://bigbay.qingclasswelearn.com//app/wechat-notify</url.app.wx.notify>
+				<url.app.ali.notify>http://bigbay.qingclasswelearn.com//app/alipay-notify</url.app.ali.notify>
+				<alipay.server.url>https://openapi.alipay.com/gateway.do</alipay.server.url>
+				<bigbay.payment.hwAlipay>http://bigbay-payment-fe-test.qingclass.com/static/bigbay-payment-hwAlipay.js</bigbay.payment.hwAlipay>
+				<!-- 微信公众号使用支付宝支付使用的统一的公私钥 -->
+				<!-- <alipay.app.id>2019070865745913</alipay.app.id>
+				<alipay.app.privateKey>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCDNiORseNY45SjbY3ENrtYVlyHvl/ymovvm+LgHAKfvoytBEYCHK0t07WG25LDn/uQKsl4xuHL+oeIGtaDmZqw0kmuSDmiu/Avnfvz3Q1xxM6r1KzzTOM2yyQah5jTzwy9XjFKsGnRrVQ+ee5bIFXOMvmzutfuqBzGh8KRA4xzK+8O4kWJcPFqN7Y1q8288O4794Sq+qO1TK68n+4DjeaFLz5rBtA17gkvX7YgBMjxSReRaPfTvqkFqjXsjihzCWinbJkfsvQzzQM9MZoRZd3o3aIhtjiKgxZLxFyA0iK2rQrmVqwqgWRwBuHWv8evs6PvUdFS5hMRN9+nHi7gbDe3AgMBAAECggEAXBQXG/xRBiUXPyT3crXR/SkF4EDKBm9MOocTzJ/7e2z2Pcic9Ih5Q4qpfg0CzoOrvz03i6lN9Z5HlEz5MvsNYn8AM+z9fWUUJeZhVH5RHAC35D/oawkO/nnKSU/VAPbxAsdiIf7xE7LmRr28dniXno+JSgaZ2CJjpzLIaImr+3nSnwJteW6PPHdFbMcJFsMeSJhHhjjtXlLhgL+kU9yS+IC2+wqWvaOsFJcTDYTzjCZxCDkqYLxx9rJ9+6T9moY/JajaE3fFSDe31UUmSZVvQD+k2bpDWJ817ebO6AnpJk4E+J1b08ooH1WEucSWEpqd5jJkisCgvUMue7sHzcCO8QKBgQDzmRwu9+A/rXYrDYlRnRX8F10XRscTg4R1yiSwLyjXiR9rQq9Zw5TMyGHnsvvrxW6l5poo3WF0Sp8Mp4yV4GVq75bra4D1yfAWGKoK2tylG62eqeShUY3sHu7f13wCv1wVWGeEP02yVO4HkhOdPPGewNIgF3IEtTQ+bybhPiaSrwKBgQCJ5EJWKKxtbtu6ZGYG9G5sxp/IDAuZdgHHbhSXxGoY006cLjdsmqspk1qhzwSu65iN/CFnTTR8C50EVK5Wk4gzSewibXQ2RBLGRfMheYt14HVswhsjTgdTFM+r1jaHiu8Kb4jmgh2gNRrYUvLH5r06/JFBZhWxfeWP3nIhyKINeQKBgQDd0gjGBFYh5jT602K9/MtuOWA9t+fELzjJgf+Sp/8K9gS0SY8fsGeparcso+GfOrOdQrYSjDUYDnNytIfiWuo/TFkjm0tdhjuoA2GkbNQLTX72QkK9W2RfJXPkRXbZkaOqlEv/Mx3vTENMhYpy3nIvW+p76p2bB97BE7pV1aCOZQKBgB0PCFfF3Ih3S0DddY7Tpg2wUe3DdBJUBw3zCc3t63nt1ewd5Toy4g0x63CcAt2l8pFBZ/ywDXZysBVAjzjZgGNmmaerr0jcUaSNCy6rwZMGyVgxE6z9/ZcplJYe34Dy62sklBIXq4yehFjAKj+sRYaPwUCp9bpg0Kbf9udds6DpAoGAVzGxM14elO3A7HJXgQRuklpmQFIQyA4ctNaVZWdNXnwlFgzPdt8nq2IKT04X01FAITSUI+ewK2BK70+s6jU9lKZLp1xz8ga+VVETD503Fc0keUwFwGZFxzYoI/eWxX3JtcEKpW8MyCIDQsUcbT0wn7cidWoNuYxknVtGhS+NLQc=</alipay.app.privateKey>
+				<alipay.app.publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmBg2hnC2dBAFGIM12HxGadoyYzT8nsOVZRYku/25fhhNYr4LnY5unBS8vpE9B3omFhsZE4iQxzKjoJ1dRuab60zTSjml2JCr8nLYpr4FvZzslIdIgqB5yr70okHmMS8A6OCxTF9S6kwbeQFZU3wqPC9dfIXewlAGfIrbNhG+tfRNErIA/s5+cF3fHS8PakBF4Iq/pFFEFyc45kYJb1G5eXk8rc+72MJ1QFMYdLE2PCRdDawBXicYgNSsotguPj62PfsqegfXTlMvAUlGfkTbQG9iAWoVYZ9hNRjRQjwUWwadV5GxJdkGMrpg0vHu7VO9KWGiJki6pBvwzUwNa0LfhwIDAQAB</alipay.app.publicKey> -->
+				
+				
+				<alipay.app.id>2019081966310707</alipay.app.id>
+				<alipay.app.privateKey>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQQA7BVd0967v7Pz+BX0b1u82sMif3XIWlkSM+pw7gjUqKC0pp9v/6a84Ps6xuv/RF+EuMuhqDUIPxDVY5yIIcqmq8CehFSL+IlvX7Xc8aGr1AMODLiqbDZFfomECjhcprqRrskeg7bRkLPq+aqM31/DHnjRvU/LY3fVPm5qz3ilw6g6IN7Vi9Sfi3GtiRJOKiQGtgodZEk9XdzmSKI1HfHEfu5Dw6zHpYMTtCENUoxrCid942+SAXdlvOAmVbURy6Ya5uFYt0nTkEfTWY+M8I41y+g2MwLO/L5zVS0yp5WRBLzannadETke4cI08VuaF5APqlRanTS1T9PsneF3uRAgMBAAECggEBAKn7f4/D/IDsiFY+fCGnmY4/K1Rg5Ep+lQBeBbzAM96KtcsUCDuSR8Mqd9pNOHR17nemglRuG/IPqIL79ePYjIvFdrXiCFt1VBGz1zjEi6WtKcjZnMPHevOGVlMe47QWIvHZ6IYtWrgXBxgspL3DB8q/fiSZA5zIYhvNCs0wgQLTzKMI5CxDnDWx5VBtzWJ0J5QowRumkLaafRzTTzoGbLzW4CQ5nPWk43jPDRM+my6g82clMflZPLQ0d5mWG67Fot5dQI2DqJkjYtyQUQNodBE+171ApTI495rYZMscAVBbYNJlxG9SLEhY+9y1QGf4RZU3hB5LMkThuKV4KDa2+JkCgYEA/F0P+6GdKWc7TV1CQROXolxWshjpkcuHmbCxo2wLTJYQB9XJEM7iCjPETDPHk60bl64FcoPYz78qKALyFy09TAdAsCrZWk5Ofs8OagJEOcFLX6Z22Ymv9eVQaKpgtWzTNROnkT1FJzitxw8oUy/KO1G4nbszn9nO3+JSkIOLdg8CgYEA00BESULrQTMEShPgIAqCL8fNO+B1Qgu16gBf6j0MdHyXJuuuu3FES+Dq5obHcxgW2+28FalxqLB/+7cqqIcQVUKoUztWgKm/maNmXXbTjtSD5ODhAYGDlMNbi8vscJFgfpJOb1EXFXr2glAxgW3j7OOjUihB8xR3osXoZaeKlF8CgYB+ycqj43hwOrsijT4iL9O48Kdl5vpCE31XC9zTfA7ZNXNsXE4eMbKC6asvlbwpR4lbVUTLWc5t4V8upvw2BLaNIf+wAncc1ca+Ewzs2aKpWaGitqFzfad35PPXAfKAc+JRAkTnxV6e6+zy23yo/pOd5drY9BplryoudSiCDnTcpQKBgB/EN0CJBpVcVZXKHVbUHbWPpwYM/7T5y9YvTj0MBxZxMc2RfUoEg0+ht9EIjW96PN2/hxv+ye+i8uvoJEsJXGRlzKgPcTeRzxUMZDVDzBZbUKYXRt6SGjZBlj+UX66hvc/qsk688+qv/eekpX0gCDk0Ffghw6EI/+CDQCohIo6jAoGAOBsJkp/YDfwDO31+iFrKJllhGpyh48tVwGunGSY50sPlseH38l773FYbtYsDtIjXmSItQIS6YVYF6hbKGPwcsPCmHeejlksVzEv4jpUcHQ0eEDKPMkY/Ci8j9mhwhMVoxvHoMkoG4DbIvBZPKTQD9uXLjy/e7nfdfTWJPdod6B0=</alipay.app.privateKey>
+				<alipay.app.publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoxVfgtFz4CLs54vEpzptrcj3kKEeSacf4uExj9VRPVDegRtyV4OiTndPZrRuF3UPKvBhChZ5aE/N8xX76OxA0tMKFforPJb5x3lZPHf0NhS9ixHYciWjJG1QaLfnqzz4JjAIblpDWjZJUY1gyUeKnfxG7xCCc4Qy7diImZg9CRidX5gPNX9mTOeCpHulZh9p9mhG2wxvFAWMCn0w9ZZtRrjTejJ1D25m4vHwFzHcj3sNtFCV47kOQbDLaS9bCcuW5f5RfAurxNDVQu+cAr9IVz1Pq+IX2Lw/BlY1lnvKcFkvyYFEEUG+48LEUuQ8JhTpM/vvFP+vjK1q7UxqBQXh7QIDAQAB</alipay.app.publicKey>
+				
+				
+				
+				
+				
+				
+				
+				<!-- app使用支付宝支付公私钥 每个app使用的都不同，对接一个就加一个 -->
+				<!-- 清新冥想app支付项目 -->
+				<alipay.sdk0.bigbayAppId>1000105</alipay.sdk0.bigbayAppId>
+				<alipay.sdk0.appId>2019081566233561</alipay.sdk0.appId>
+				<alipay.sdk0.privateKey>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCH1fjf96V7wmvtc7/sy2tIyilIKCM2kLpEVD71HcxMBXHBpsafC57AzVCFpa+7VwDT57RENqw/LdG7kMLObfieN7ub/yYUnpXsw5otEJ8BhznwXo/f3gYZ3skULe4HpFipb7EpnjbB6t0IQmC2tu7qhaTL9EZzXw2EwkbvFqhScd0qN1j2658yijOwK4+uxMkGdm+taL9CBhw6nFAFYa0BFgM5dbLqG3cAEWteVbt4xkLA0zlVyY1KACUxya1OGOP/DsyamV0SJv3Ocq6gvBSPtLe4rfJgGw/+pNURgnhVPLtOY/QIka5+IiGuhGpu2vOEN8ZqMy5liIJI3cN+BFwVAgMBAAECggEAMoeDI/VghrAlK9iCDZkCGLqzLpdXugWOdLqODOp/w8vGrE3Y1vMgpAH8MSsYOu07bphjs3hPDNWDjm1kOhwoftqmnHoGdWckyEVfBeKH866U+/iBNrrFtDvuuuX3BLq7DJRy59Nl9S7j+B2REobsSytZyVDeIC68vaTzdB8OkFQl7KugzTJAz89+WCHj4GvcYP2oe/IfEgM9sY2b3g0TYyfyd8Wr1MG3RtioskN1aWyagsHEcGD+iB5Me2N1MXLwPVSpPLuYJ2nUQwtfy2M+y7xFgHPNygcmgm40qUwFNnb4phETHGeVv8r6mhukz8wLM2uAcYImtCK1a0672e1XoQKBgQDHrSf7rV6F9ppvaXL72dHMPR4ZCwpQfcN5PDvcqC7eHbHXU1h9wnhVedNq7ptVzBmC4V5yw0S5bcxuLDeCjwrIZCXuBtdneggaoaor2UxItjNo9f+Loy9yA2EinioivofgfzPBOH7awRs/Bd8m7/En8WgEkIsfthLS0UkTswPm6QKBgQCuJtJBSz3BDtJfi610/NLYslkMJ+w3AXoYP4qznJ0X0xyJ58WSYHZIEStDM5vyuRjd6XiV3i7xMBWiXAEHXAUyJcjIjYLsitu3iOaDcW800PTrX3dSZkyxFkEtCDgElIKF431DJaXpJ/hmjGVNyt4Ld1rfsYl6CFBBLTZVwHeoTQKBgGs0Kk1TjXY7Kjs60EMrdRpEjg5AAS+p9fL3ReR4X4FdTAghdVc/u7+Ygsvcg4WS6Pd97GmNMS6lJqbYEo2EIvPn4P1kqu2hdQxnU6frKKu5NuzZdnQQDv8VlWcyp8izptv/L1hD7sef+fLiQibzl/QsBf69ZBSIep65QpTS/ftRAoGAe3txV/TGy837ot3CVxIxWo9TDoh8OCBm9yyO534j8VGyiaH6eCjHlZ/+4f6FFBzkoey6oOFSvZePr3i3DgXUdVNPQ8z7SUfINSHv+MGEzZlgIEinrZh1xpb2Db0nIzA+QDsmhWb7dg/uVKA18Gvo945gs/4JcarVZPFu9myrK30CgYEAgFXowL+gdoCOKJgEchs5p+Pl8sIcQHVO1UrdrVVVXHh8E+SVZmnq5RyyOlBt/ebvgiBR3SxVM1QnQeu/3lm2K2+W5bNYYRtxDJYWc1jpvnoMeAP24gXYvDkd5pXdLQA2PrAYL8cfcMv3oQsAJhimReBlt26A/yS5XzMbzQCXaA8=</alipay.sdk0.privateKey>
+ 				<alipay.sdk0.publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoxVfgtFz4CLs54vEpzptrcj3kKEeSacf4uExj9VRPVDegRtyV4OiTndPZrRuF3UPKvBhChZ5aE/N8xX76OxA0tMKFforPJb5x3lZPHf0NhS9ixHYciWjJG1QaLfnqzz4JjAIblpDWjZJUY1gyUeKnfxG7xCCc4Qy7diImZg9CRidX5gPNX9mTOeCpHulZh9p9mhG2wxvFAWMCn0w9ZZtRrjTejJ1D25m4vHwFzHcj3sNtFCV47kOQbDLaS9bCcuW5f5RfAurxNDVQu+cAr9IVz1Pq+IX2Lw/BlY1lnvKcFkvyYFEEUG+48LEUuQ8JhTpM/vvFP+vjK1q7UxqBQXh7QIDAQAB</alipay.sdk0.publicKey>
+ 				<!-- 益伴 -->
+ 				<alipay.sdk1.bigbayAppId>1000084</alipay.sdk1.bigbayAppId>
+ 				<alipay.sdk1.appId>2019070865745913</alipay.sdk1.appId>
+ 				<alipay.sdk1.privateKey>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCDNiORseNY45SjbY3ENrtYVlyHvl/ymovvm+LgHAKfvoytBEYCHK0t07WG25LDn/uQKsl4xuHL+oeIGtaDmZqw0kmuSDmiu/Avnfvz3Q1xxM6r1KzzTOM2yyQah5jTzwy9XjFKsGnRrVQ+ee5bIFXOMvmzutfuqBzGh8KRA4xzK+8O4kWJcPFqN7Y1q8288O4794Sq+qO1TK68n+4DjeaFLz5rBtA17gkvX7YgBMjxSReRaPfTvqkFqjXsjihzCWinbJkfsvQzzQM9MZoRZd3o3aIhtjiKgxZLxFyA0iK2rQrmVqwqgWRwBuHWv8evs6PvUdFS5hMRN9+nHi7gbDe3AgMBAAECggEAXBQXG/xRBiUXPyT3crXR/SkF4EDKBm9MOocTzJ/7e2z2Pcic9Ih5Q4qpfg0CzoOrvz03i6lN9Z5HlEz5MvsNYn8AM+z9fWUUJeZhVH5RHAC35D/oawkO/nnKSU/VAPbxAsdiIf7xE7LmRr28dniXno+JSgaZ2CJjpzLIaImr+3nSnwJteW6PPHdFbMcJFsMeSJhHhjjtXlLhgL+kU9yS+IC2+wqWvaOsFJcTDYTzjCZxCDkqYLxx9rJ9+6T9moY/JajaE3fFSDe31UUmSZVvQD+k2bpDWJ817ebO6AnpJk4E+J1b08ooH1WEucSWEpqd5jJkisCgvUMue7sHzcCO8QKBgQDzmRwu9+A/rXYrDYlRnRX8F10XRscTg4R1yiSwLyjXiR9rQq9Zw5TMyGHnsvvrxW6l5poo3WF0Sp8Mp4yV4GVq75bra4D1yfAWGKoK2tylG62eqeShUY3sHu7f13wCv1wVWGeEP02yVO4HkhOdPPGewNIgF3IEtTQ+bybhPiaSrwKBgQCJ5EJWKKxtbtu6ZGYG9G5sxp/IDAuZdgHHbhSXxGoY006cLjdsmqspk1qhzwSu65iN/CFnTTR8C50EVK5Wk4gzSewibXQ2RBLGRfMheYt14HVswhsjTgdTFM+r1jaHiu8Kb4jmgh2gNRrYUvLH5r06/JFBZhWxfeWP3nIhyKINeQKBgQDd0gjGBFYh5jT602K9/MtuOWA9t+fELzjJgf+Sp/8K9gS0SY8fsGeparcso+GfOrOdQrYSjDUYDnNytIfiWuo/TFkjm0tdhjuoA2GkbNQLTX72QkK9W2RfJXPkRXbZkaOqlEv/Mx3vTENMhYpy3nIvW+p76p2bB97BE7pV1aCOZQKBgB0PCFfF3Ih3S0DddY7Tpg2wUe3DdBJUBw3zCc3t63nt1ewd5Toy4g0x63CcAt2l8pFBZ/ywDXZysBVAjzjZgGNmmaerr0jcUaSNCy6rwZMGyVgxE6z9/ZcplJYe34Dy62sklBIXq4yehFjAKj+sRYaPwUCp9bpg0Kbf9udds6DpAoGAVzGxM14elO3A7HJXgQRuklpmQFIQyA4ctNaVZWdNXnwlFgzPdt8nq2IKT04X01FAITSUI+ewK2BK70+s6jU9lKZLp1xz8ga+VVETD503Fc0keUwFwGZFxzYoI/eWxX3JtcEKpW8MyCIDQsUcbT0wn7cidWoNuYxknVtGhS+NLQc=</alipay.sdk1.privateKey>
+ 				<alipay.sdk1.publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmBg2hnC2dBAFGIM12HxGadoyYzT8nsOVZRYku/25fhhNYr4LnY5unBS8vpE9B3omFhsZE4iQxzKjoJ1dRuab60zTSjml2JCr8nLYpr4FvZzslIdIgqB5yr70okHmMS8A6OCxTF9S6kwbeQFZU3wqPC9dfIXewlAGfIrbNhG+tfRNErIA/s5+cF3fHS8PakBF4Iq/pFFEFyc45kYJb1G5eXk8rc+72MJ1QFMYdLE2PCRdDawBXicYgNSsotguPj62PfsqegfXTlMvAUlGfkTbQG9iAWoVYZ9hNRjRQjwUWwadV5GxJdkGMrpg0vHu7VO9KWGiJki6pBvwzUwNa0LfhwIDAQAB</alipay.sdk1.publicKey>
+
+				<!-- 海湾测试2 -->
+				<alipay.sdk2.bigbayAppId>1000097</alipay.sdk2.bigbayAppId>
+				<alipay.sdk2.appId>2019101268307877</alipay.sdk2.appId>
+				<alipay.sdk2.privateKey>MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCRKSKsqFZij1cmW9IGpshj4SFZKmpR7dKIB4iMBuj57wRYLbPAljZnKSN6bxisUfrtrrnVCYc3BdFYIHV+XIFFv5fcUZ/7ihjKDEu8P5uAAojG22Su2B4RJwFnKapK6v9yDzNybH21U0JARnEJ8TAIlfR/L6guS1HWOoL+sB0x2U8JWSNjYOilVRmld8OiMtwVHuxFL0q0ahDvCpQzXOxbCzVIqv1qJAZEoa5IPKJesRE8e4Z0f8WN483rjqL/zPU5NrwHt6P8NesKznRVZN77mgxgDFpS8AvBUQYoj0RQ1JZwxNkQ8HspIKdY2zL2kC8Qm7Fg9fyP5ob8INQ4UYpfAgMBAAECggEAE4Ls9zo1SlAsDarf4yb93nb/TYXm/pYx6zjgALpZDGc1NUkHVUabj2g3LZjLPzZRvSr0LY93Tk0I44iRYme6tI5ZMjMChwP76wSWFXqTQzST/+6zbND90Z5lkOFH04Qcy88BQksU5o+HYy5UuVpi83R8ha/5MifLmzkILIWtluqDwlJhzeyZzKu4rghhmI3zJ4cRt7wJ36xHXw80v+xpaWTVvjW+Tj2guqM0lvj1EeHzrMTrWX+BJhLIXhO3SDXvU3xTzBNR9jpXwoKlHBxEMYLvPCxj7OS+jlBQFJkMsbKsifO7/taHOEUQrKA5lLEDxMYuh/HOq9Xq5CQKKXraaQKBgQDO5V8F8BtjQi9GrdxYB2whFGTFpWYjpCo9cYv4Wewsp4j/zR4jUpOI1SUse+vOddMN0mVFAqJJ0Su9fUu7zDX+eDVBtwLqJcT18vZ/JVk50hdt6KqXBCGN1ZuPPNmi6Y5yIxpUwKczU9X41urXu1utHxuBZ8q0CDytER+INWZp4wKBgQCznNagroP7R9gasobihlwGuPCEaQqjinnrDIvHb/kBysAa8s2dRHdECCz9L84q3YhiBESxJNQFCNUN735311fbP/SCHvqWgywNvcVtghMEk5Rw3b8L5PmxW3tjih5Fdg4xMDgavyskeLk7Z7qHb45Z9hgF8nmkuO8kHAiGPCO2VQKBgHjJlllMHWEsgZc853gJFUqWsmJlNqU2MWbfxHzAWs6THLtij+bFTdbDwUkgK8HELexS2caZTA/WazfcT3ubNCaVHVp5Mt1qIXwJVXlTX60PB5imDfnOcpxwibntJ44h1oSyE6xJMRQZLMFzD3XVLyd6Er/QzZmfeXT8mzEVI+5LAoGAYuauzEWsSRZzaaf6XAut6sm1LsQEZq8emQ4MfeIrVBBHnc8q5zlHDwANfdDwDmxz57z/8iccVDVb09OXaPf72a+qvGfAhlZuUJa5eqZQQInfCBMiWrNXxpBgLhxktMzf3bf2fMvdPrT3Ej342RDVarX23nd5AfoPPGvvSbMd2w0CgYBgpuwuTpap51Z0ThkbL92tCvxj8r5Hioj/YbSOqYvKDtaYcNW7euLSv32oB+qPDUv6da9ka80iD1Nrbu/k1o5NaYJeU03mVSY4kEbZJRNi3PrluCHrKRsdcDloc0NF/QVVvmbVCEkgHNYcLslep7QChcW6NO09F0uS9+/4QM/6pA==</alipay.sdk2.privateKey>
+				<alipay.sdk2.publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmBg2hnC2dBAFGIM12HxGadoyYzT8nsOVZRYku/25fhhNYr4LnY5unBS8vpE9B3omFhsZE4iQxzKjoJ1dRuab60zTSjml2JCr8nLYpr4FvZzslIdIgqB5yr70okHmMS8A6OCxTF9S6kwbeQFZU3wqPC9dfIXewlAGfIrbNhG+tfRNErIA/s5+cF3fHS8PakBF4Iq/pFFEFyc45kYJb1G5eXk8rc+72MJ1QFMYdLE2PCRdDawBXicYgNSsotguPj62PfsqegfXTlMvAUlGfkTbQG9iAWoVYZ9hNRjRQjwUWwadV5GxJdkGMrpg0vHu7VO9KWGiJki6pBvwzUwNa0LfhwIDAQAB</alipay.sdk2.publicKey>
+				
+
+				<wechat.pay.refund.url>https://api.mch.weixin.qq.com/secapi/pay/refund</wechat.pay.refund.url>
+				<ali.pay.refund.url>https://openapi.alipay.com/gateway.do</ali.pay.refund.url>
+				<jd.pay.refund.url>https://paygate.jd.com/service/refund</jd.pay.refund.url>
+
+
+
+				<!--suppress UnresolvedMavenProperty -->
+				<spring.mail.alarm.cc>jiecai.li@qingclass.com,mingsheng.wu@qingclass.com</spring.mail.alarm.cc>
+			</properties>
+		</profile>
+	</profiles>
+</project>

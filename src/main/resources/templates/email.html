@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>海湾报警邮件</title>
+</head>
+<body>
+
+
+
+
+	您好，您有一笔订单在海湾支付成功，但海湾回调业务端时失败。
+	<br />
+
+	<br /> 为保证后续订单正常完成交付，请及时查看并确保网络或服务器正常。
+	<br />
+
+	<br /> 问题订单详情：
+	<br />
+	<br />  订单时间 ：
+	<span th:text="${currentDatetime}"></span>
+	<br /> 
+	<br />  订单商户单号：
+	<span th:text="${outTradeNo}"></span>
+	<br /> 
+	<br />  订单ID：
+	<span th:text="${paymentTransactionId}"></span>
+	<br /> 
+	<br />  所属项目：
+	<span th:text="${bigbayAppName}"></span>
+	<br /> 
+	<br /> 
+
+	<div>
+		请联系海湾工作人员处理。
+
+	</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title></title>
+</head>
+
+<body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var businessSellPageUrl = [[${businessSellPageUrl}]];
+
+    var urlParams = getUrlParams();
+    var url = ''
+    var arr = [];
+    var text = ''
+    for (var key in urlParams) {
+        text = key + '=' + encodeURIComponent(urlParams[key]);
+        arr.push(text);
+    }
+
+    var ary = decodeURIComponent(businessSellPageUrl).split("#/")
+    if(ary[1] && ary[1].indexOf('?')>-1){
+        url = ary[0] + '#/' + ary[1]  + '&' + arr.join('&')
+    }else{
+        url = ary[0] + '#/' + (ary[1] ? ary[1] : '') + '?' + arr.join('&');
+    }
+
+    location.replace(url)
+
+    function getUrlParams() {
+        var url = location.href
+        if (url.indexOf('#') >= 0) {
+            url = url.substr(0, url.indexOf('#'));
+        }
+        var params = url.substr(location.href.indexOf('?') + 1);
+        params = params.split('&');
+        var obj = {};
+        for (var i = 0; i < params.length; i++) {
+            var tem = params[i].split('=');
+            obj[tem[0]] = decodeURIComponent(tem[1]);
+        }
+        return obj;
+    }
+    /*]]>*/
+</script>
+</body>
+
+</html>

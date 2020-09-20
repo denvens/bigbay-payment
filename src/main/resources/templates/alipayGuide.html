@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no,viewport-fit=cover" />
+
+</head>
+<body>
+<div id="alipay-app"></div>
+<script th:utext="'var alipayUrl=\'' + ${alipayUrl} + '\''"></script>
+<script th:utext="'var alipayVariable=\'' + ${alipayVariable} + '\''"></script>
+<script th:inline="javascript">
+
+(function () {
+	setTimeout(function () {
+	var script = document.createElement('script');
+	script.src = [[${alipayUrlJsEntry}]]+'?ts=' + Date.now();
+	document.body.appendChild(script);
+});
+})();
+</script>
+</body>
+</html>
